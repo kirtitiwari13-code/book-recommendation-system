@@ -1,0 +1,79 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<section style="padding: 40px 5%; background: #fff0f5; min-height: 100vh; color: #4a2c2a;">
+    
+    <h2 style="text-align:center; color:#d63384;">
+        {% if status == "read" %}
+            📚 Books You've Read
+        {% else %}
+            📖 Currently Reading
+        {% endif %}
+    </h2>
+
+    <div id="library-container" class="book-container" style="
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+        margin-top: 30px;
+    "></div>
+</section>
+
+<style>
+.book-card {
+    background: #ffe4ec;
+    padding: 15px;
+    border-radius: 15px;
+    width: 160px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    transition: 0.3s;
+}
+
+.book-card:hover {
+    transform: translateY(-5px);
+}
+
+.book-card img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+.book-card p {
+    margin: 5px 0;
+}
+
+.book-card a {
+    text-decoration: none;
+    color: inherit;
+}
+</style>
+
+<script>
+    const books = {{ books | tojson }};
+    const statusType = "{{ status }}";
+    const container = document.getElementById("library-container");
+
+    books.forEach(book => {
+        const status = localStorage.getItem(`status-${book.ISBN}`);
+
+        if (status === statusType) {
+            container.innerHTML += `
+                <div class="book-card">
+                    <a href="/book/${book.ISBN}">
+                        <img src="${book['Image-URL-M']}">
+                        <p><b>${book['Book-Title'].substring(0, 40)}</b></p>
+                        <p style="color: #a66;">${book['Book-Author']}</p>
+                    </a>
+                </div>
+            `;
+        }
+    });
+
+    if (container.innerHTML === "") {
+        container.innerHTML = "<p style='text-align:center; color:#a66;'>No books yet.</p>";
+    }
+</script>
+
+{% endblock %}

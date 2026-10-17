@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Filter Books</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #fff0f5; /* pastel pink background */
+            color: #4a2c2a;
+        }
+
+        .container {
+            width: 80%;
+            margin: auto;
+        }
+
+        h1 {
+            color: #d63384;
+        }
+
+        form input, form select {
+            padding: 8px;
+            margin: 5px;
+            border: 1px solid #f5c2d7;
+            border-radius: 6px;
+            background: #ffe4ec;
+            color: #4a2c2a;
+        }
+
+        button {
+            padding: 8px 15px;
+            background: #ff8fab;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #e75480;
+        }
+
+        .book-card {
+            background: #ffe4ec;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .book-card h3 {
+            color: #c2185b;
+        }
+
+        .no-results {
+            color: #a66;
+            margin-top: 20px;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+
+    <h1>🔍 Filter Books</h1>
+
+    <form method="POST">
+        <input type="number" step="0.1" name="min_rating" placeholder="Min Rating">
+
+        <input type="number" name="year" placeholder="Year">
+
+        <input type="text" name="author" placeholder="Author">
+
+        <input type="text" name="publisher" placeholder="Publisher">
+
+        <input type="text" name="country" placeholder="Country">
+
+        <select name="sort_by">
+            <option value="">Sort By</option>
+            <option value="rating">Top Rated</option>
+            <option value="reads">Most Popular</option>
+        </select>
+
+        <button type="submit">Apply Filters</button>
+    </form>
+
+    <hr>
+
+    {% if books %}
+        {% for book in books %}
+            <div class="book-card">
+                <a href="/book/{{ book['ISBN'] }}">
+                    <h3>{{ book['Book-Title'] }}</h3>
+                </a>
+                <p><b>Author:</b> {{ book['Book-Author'] }}</p>
+                <p><b>Year:</b> {{ book['Year-Of-Publication'] }}</p>
+                <p><b>Publisher:</b> {{ book['Publisher'] }}</p>
+                <p><b>Rating:</b> {{ "%.2f"|format(book['avg_rating']) }}</p>
+                <p><b>Reads:</b> {{ book['num_reads'] }}</p>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p class="no-results">No books found. Try different filters.</p>
+    {% endif %}
+
+</div>
+</body>
+</html>

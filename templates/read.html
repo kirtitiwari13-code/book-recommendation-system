@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Read Books</title>
+    <style>
+        body {
+            font-family: Arial;
+            background-color: #fff0f5; /* pastel pink */
+            color: #4a2c2a;
+        }
+
+        h1 {
+            text-align: center;
+            color: #d63384;
+        }
+
+        .container {
+            width: 70%;
+            margin: auto;
+        }
+
+        .book {
+            background: #ffe4ec;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .empty {
+            text-align: center;
+            color: #a66;
+        }
+
+        a {
+            color: #c2185b;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>✅ Books You've Read</h1>
+
+    <div class="container">
+        {% if read_books %}
+            {% for book in read_books %}
+                <div class="book">
+                    <h3>{{ book[0] }}</h3>
+                    <p>Author: {{ book[1] }}</p>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p class="empty">You haven't completed any books yet</p>
+        {% endif %}
+    </div>
+
+    <center>
+        <a href="/">⬅ Back to Home</a>
+    </center>
+
+</body>
+</html>

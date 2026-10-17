@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="detail-container" style="padding: 40px 10%; display: flex; gap: 40px; align-items: flex-start;">
+    
+    <div class="detail-image">
+        <img src="{{ book['Image-URL-L'] }}" 
+     alt="{{ book['Book-Title'] }}" 
+     style="border-radius: 8px; max-width: 300px;"
+     onerror="this.onerror=null; this.src='{{ url_for('static', filename='images/no-cover.png') }}';">
+    </div>
+
+    <div class="detail-info" style="flex: 1;">
+        <h1 style="margin-top: 0;">{{ book['Book-Title'] }}</h1>
+        <h3 style="color: #555;">Author: {{ book['Book-Author'] }}</h3>
+        <p><strong>Year of Publication:</strong> {{ book['Year-Of-Publication'] }}</p>
+        <p><strong>Publisher:</strong> {{ book['Publisher'] }}</p>
+        <p><strong>ISBN:</strong> {{ book['ISBN'] }}</p>
+
+        <hr style="margin: 20px 0; border: 0; border-top: 1px solid #ddd;">
+{% if session.user_id %}
+        <div style="margin-bottom: 20px;">
+            <label for="book-status" style="display: block; margin-bottom: 8px; font-weight: bold;">Reading Status:</label>
+            <select id="book-status"
+        onchange="updateStatus('{{ book['ISBN'] }}', this.value)"
+        style="padding: 10px; width: 200px; border-radius: 5px; border: 1px solid #ccc;">
+
+    <option value="unread" {% if user_status == 'unread' %}selected{% endif %}>Unread</option>
+    <option value="reading" {% if user_status == 'reading' %}selected{% endif %}>Reading</option>
+    <option value="read" {% if user_status == 'read' %}selected{% endif %}>Read</option>
+
+</select>
+        </div>
+{% else %}
+{% endif %}
+        <button onclick="getRecs('{{ book['Book-Title']|safe }}')" class="primary-btn">
+    Get Recommended Books
+</button>
+
+        <div id="recommendation-list" style="margin-top: 30px;"></div>
+    </div>
+</div>
+{% endblock %}

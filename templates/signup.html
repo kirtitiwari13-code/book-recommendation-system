@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sign Up</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #fff0f5; /* pastel pink */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #4a2c2a;
+        }
+
+        .container {
+            background: #ffe4ec;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0px 4px 15px rgba(0,0,0,0.1);
+            width: 300px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #d63384;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border: 1px solid #f5c2d7;
+            border-radius: 6px;
+            background: #fff5f8;
+            color: #4a2c2a;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #ff8fab;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #e75480;
+        }
+
+        .link {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        a {
+            text-decoration: none;
+            color: #c2185b;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Create Account</h2>
+
+    <form action="/signup" method="POST">
+        <input type="text" name="username" placeholder="Enter Username" required>
+        <input type="password" name="password" placeholder="Enter Password" required>
+        <button type="submit">Sign Up</button>
+    </form>
+
+    <div class="link">
+        <p>Already have an account? <a href="/login">Login here</a></p>
+    </div>
+</div>
+
+</body>
+</html>

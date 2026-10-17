@@ -1,0 +1,54 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<section style="padding: 20px 5%;">
+    {% if query %}
+        <h2>Search Results for "{{ query }}"</h2>
+    {% else %}
+	{% if session.user_id %}
+     	<h2>Discover your next title</h2>
+        <p>Personalised recommendations for YOU!</p>
+	{% else %}
+     	<h2>Discover your next title</h2>
+        <p>All time populars</p>
+	{% endif %}
+        
+    {% endif %}
+
+    {% if books %}
+        <div class="book-container" style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;">
+            {% for book in books %}
+            <div class="book-card" style="width: 200px; margin-bottom: 20px;">
+                <a href="/book/{{ book.ISBN }}" style="text-decoration:none; color:black;">
+                    <div style="width: 100%; height: 280px; background: #f0f0f0; position: relative; border-radius: 8px; display: flex; align-items: center; justify-content: center; overflow: hidden; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+                        
+                        <img src="{{ book['Image-URL-M'] }}" 
+                             alt="cover"
+                             style="width: 100%; height: 100%; object-fit: cover; position: absolute; z-index: 2;"
+                             onerror="this.style.visibility='hidden'; this.nextElementSibling.style.display='flex';">
+                        
+                        <div style="display: none; background: #333; color: white; width: 100%; height: 100%; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 20px; position: absolute; z-index: 1;">
+                            <span style="font-size: 2rem; margin-bottom: 10px;">📖</span>
+                            <p style="font-size: 0.75rem; font-weight: bold; margin: 0; line-height: 1.2;">COVER NOT FOUND</p>
+                            <p style="font-size: 0.6rem; opacity: 0.7; margin-top: 5px;">{{ book.ISBN }}</p>
+                        </div>
+                    </div>
+                    
+                    <div style="padding-top: 10px;">
+                        <p style="font-size: 0.85rem; font-weight: bold; margin: 0; color: #333;">
+                            {{ book['Book-Title'][:40] }}{% if book['Book-Title']|length > 40 %}...{% endif %}
+                        </p>
+                        <p style="font-size: 0.75rem; color: gray; margin: 5px 0 0 0;">{{ book['Book-Author'] }}</p>
+                    </div>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div style="text-align: center; padding: 50px;">
+            <p>No books found matching your search. Try a different title or author!</p>
+            <a href="/" style="color: #ff4757; font-weight: bold;">Back to Home</a>
+        </div>
+    {% endif %}
+</section>
+{% endblock %}

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Home~~</title>
+
+<style>
+body {margin:0;font-family:Arial;background:#fff7fb;}
+
+/* HEADER */
+header {background:#ffd6e8;color:#333;padding:10px 20px;display:flex;align-items:center;justify-content:space-between;}
+.logo {font-size:22px;font-weight:bold;}
+.search input {padding:8px;width:300px;border-radius:20px;border:none;outline:none;}
+
+/* NAVBAR */
+nav {background:#ffe3f1;color:#333;display:flex;gap:20px;padding:10px 20px;}
+nav a {color:#333;text-decoration:none;font-weight:500;}
+nav a:hover {color:#ff4d88;}
+
+/* BANNER ONLY (keep background) */
+.banner {
+  height:300px;
+  background:url('https://images.unsplash.com/photo-1495446815901-a7297e633e8d') center/cover;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:white;
+  font-size:30px;
+  font-weight:bold;
+  border-bottom-left-radius:30px;
+  border-bottom-right-radius:30px;
+}
+
+/* EMPTY SPACE FOR FUTURE CONTENT */
+.content-placeholder {
+  height:400px;
+}
+
+/* FOOTER */
+footer {background:#ffd6e8;color:#333;text-align:center;padding:15px;margin-top:20px;}
+
+</style>
+</head>
+
+<body>
+
+<header>
+<div class="logo">Recommendation Model </div>
+<div class="search">
+<form action="/search" method="GET" style="display:flex; gap:5px;">
+    <input type="text" name="query" placeholder="Search books..." required>
+    <button type="submit" style="border:none; background:#ff4d88; color:white; padding:8px 12px; border-radius:20px; cursor:pointer;">
+        Search
+    </button>
+</form>
+</div></header>
+
+ 
+<nav>
+<a href="/">Home</a>
+<a href="/index">Top Books</a>
+{% if session.user_id %}
+    <a href="/logout">Logout</a>
+{% else %}
+    <a href="/login">Login</a>
+{% endif %}
+<a href="/filter">Filter</a>
+<a href="/about">About</a>
+</nav> 
+
+
+{% if session.user_id %}
+    <div class="banner" >✨ Welcome, {{ session['username'] }} ✨</div>
+{% else %}
+    <div class="banner" >✨<b> Discover Magical Stories</b>  ✨</div>
+{% endif %}
+
+
+<div class="content-placeholder">
+<!-- Future database content will load here -->
+</div>
+
+<footer>
+© 2026 Minor Project
+</footer>
+
+</body>
+</html>
